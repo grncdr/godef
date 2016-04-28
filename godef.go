@@ -28,7 +28,6 @@ var tflag = flag.Bool("t", false, "print type information")
 var aflag = flag.Bool("a", false, "print public type and member information")
 var Aflag = flag.Bool("A", false, "print all type and members information")
 var fflag = flag.String("f", "", "Go source filename")
-var acmeFlag = flag.Bool("acme", false, "use current acme window")
 
 func fail(s string, a ...interface{}) {
 	fmt.Fprint(os.Stderr, "godef: "+fmt.Sprintf(s, a...)+"\n")
@@ -71,15 +70,8 @@ func main() {
 		fail("cannot resolve symlinks in %s: %v", filename, err)
 	}
 
-	var afile *acmeFile
 	var src []byte
-	if *acmeFlag {
-		var err error
-		if afile, err = acmeCurrentFile(); err != nil {
-			fail("%v", err)
-		}
-		filename, src, searchpos = afile.name, afile.body, afile.offset
-	} else if *readStdin {
+	if *readStdin {
 		src, _ = ioutil.ReadAll(os.Stdin)
 	} else {
 		// TODO if there's no filename, look in the current
@@ -108,10 +100,6 @@ func main() {
 		fmt.Fprintf(os.Stderr, "no expression or offset specified\n")
 		flag.Usage()
 		os.Exit(2)
-	}
-	// print old source location to facilitate backtracking
-	if *acmeFlag {
-		fmt.Printf("\t%s:#%d\n", afile.name, afile.runeOffset)
 	}
 	switch e := o.(type) {
 	case *ast.ImportSpec:
