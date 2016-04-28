@@ -40,7 +40,7 @@ func init() {
 	if p == "" {
 		return
 	}
-	gopath := strings.Split(p, ":")
+	gopath := filepath.SplitList(p)
 	for i, d := range gopath {
 		gopath[i] = filepath.Join(d, "src")
 	}
