@@ -14,11 +14,11 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/rogpeppe/godef/go/ast"
-	"github.com/rogpeppe/godef/go/parser"
-	"github.com/rogpeppe/godef/go/printer"
-	"github.com/rogpeppe/godef/go/scanner"
-	"github.com/rogpeppe/godef/go/token"
+	"github.com/grncdr/godef/go/ast"
+	"github.com/grncdr/godef/go/parser"
+	"github.com/grncdr/godef/go/printer"
+	"github.com/grncdr/godef/go/scanner"
+	"github.com/grncdr/godef/go/token"
 )
 
 // Type represents the type of a Go expression.
